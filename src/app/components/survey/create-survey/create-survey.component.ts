@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { SurveyService } from 'src/app/services/survey.service';
@@ -11,6 +11,7 @@ import { SurveyService } from 'src/app/services/survey.service';
 })
 export class CreateSurveyComponent implements OnInit {
   surveyForm: FormGroup;
+  questions: FormArray;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -29,35 +30,48 @@ export class CreateSurveyComponent implements OnInit {
   createForm() {
     this.surveyForm = this.formBuilder.group({
       title: ['', Validators.required],
-      questions: ['', Validators.required],
+      questions: this.formBuilder.array([this.createQuestion()]),
       // answers: ['', Validators.required],
     });
   }
 
-  onSubmit() {
-    if (this.surveyForm.invalid) {
-      return;
-    }
-    this.createSurvey();
-  }
-
-  createSurvey() {
-    const title = this.form.title.value;
-    const questions = this.form.questions.value;
-    const answers = this.form.answers.value;
-
-    const survey: Parameters<SurveyService['create']>[0] = {
-      title,
-      questions,
-      answers,
-    };
-
-    this.surveyService.create(survey).subscribe((data) => {
-      if (data.error) {
-        // Display error
-        return console.log('Error: ', data.message);
-      }
-      this.router.navigate(['surveys']);
+  createQuestion() {
+    return this.formBuilder.group({
+      questionNumber: ['', Validators.required],
+      question: ['', Validators.required],
+      textAnswer: ['', Validators.required],
     });
   }
+
+  addQuestion() {
+    this.questions = this.surveyForm.get('questions') as FormArray;
+    this.questions.push(this.createQuestion());
+  }
+
+  // onSubmit() {
+  //   if (this.surveyForm.invalid) {
+  //     return;
+  //   }
+  //   this.createSurvey();
+  // }
+
+  // createSurvey() {
+  //   const title = this.form.title.value;
+  //   const questions = this.form.questions.value;
+  //   const answers = this.form.answers.value;
+
+  //   const survey: Parameters<SurveyService['create']>[0] = {
+  //     title,
+  //     questions,
+  //     answers,
+  //   };
+
+  //   this.surveyService.create(survey).subscribe((data) => {
+  //     if (data.error) {
+  //       // Display error
+  //       return console.log('Error: ', data.message);
+  //     }
+  //     this.router.navigate(['surveys']);
+  //   });
+  // }
 }

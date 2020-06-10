@@ -4,7 +4,7 @@
     </h1>
     <form [formGroup]="surveyForm" novalidate>
         <div class="form-group">
-            <label class="center-block">Naam:
+            <label class="center-block">Titel:
                 <input class="form-control" formControlName="title" type="text">
                 <div
                     *ngIf="surveyForm.controls['title'].invalid && (surveyForm.controls['title'].dirty || surveyForm.controls['title'].touched)">
@@ -14,7 +14,15 @@
                 </div>
             </label>
         </div>
-        <div class="form-group">
+        <div formArrayName="questions" *ngFor="let question of form['questions'].controls; let i = index">
+            <div [formGroupName]="i">
+                <input formControlName='questionNumber'>
+                <input formControlName='question'>
+                <input formControlName='textAnswer'>
+            </div>
+        </div>
+        <button type="button" (click)="addQuestion()" class="btn">+</button>
+        <!-- <div class="form-group">
             <label class="center-block">Vragen:
                 <input class="form-control" formControlName="questions" type="text">
                 <div
@@ -24,7 +32,7 @@
                     </div>
                 </div>
             </label>
-        </div>
+        </div> -->
         <button type="submit" (click)="onSubmit()" [disabled]="surveyForm.pristine || surveyForm.invalid"
             class="btn btn-success">
             Aanmaken
