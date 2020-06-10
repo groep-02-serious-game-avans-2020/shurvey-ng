@@ -1,0 +1,33 @@
+<div class="center">
+    <h1>
+        Vragenlijst aanmaken
+    </h1>
+    <form [formGroup]="surveyForm" novalidate>
+        <div class="form-group">
+            <label class="center-block">Naam:
+                <input class="form-control" formControlName="title" type="text">
+                <div
+                    *ngIf="surveyForm.controls['title'].invalid && (surveyForm.controls['title'].dirty || surveyForm.controls['title'].touched)">
+                    <div *ngIf="surveyForm.controls['title'].errors.required">
+                        Titel is vereist.
+                    </div>
+                </div>
+            </label>
+        </div>
+        <div class="form-group">
+            <label class="center-block">Vragen:
+                <input class="form-control" formControlName="questions" type="text">
+                <div
+                    *ngIf="surveyForm.controls['questions'].invalid && (surveyForm.controls['questions'].dirty || surveyForm.controls['questions'].touched)">
+                    <div *ngIf="surveyForm.controls['questions'].errors.required">
+                        Vragen zijn vereist.
+                    </div>
+                </div>
+            </label>
+        </div>
+        <button type="submit" (click)="onSubmit()" [disabled]="surveyForm.pristine || surveyForm.invalid"
+            class="btn btn-success">
+            Aanmaken
+        </button>
+    </form>
+</div>

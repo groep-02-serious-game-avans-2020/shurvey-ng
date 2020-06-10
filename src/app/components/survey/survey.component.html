@@ -1,1 +1,20 @@
-<p>survey works!</p>
+<div class="center">
+    <h1>Vragenlijsten</h1>
+    <button (click)="createSurvey()" class="btn btn-info">
+        Nieuwe vragenlijst aanmaken
+    </button>
+    <div fxLayout="column" fxLayoutAlign="">
+        <p *ngIf="!surveys || surveys && !(surveys.length > 0)">
+            Geen velden beschikbaar.
+        </p>
+        <table class="table" *ngFor="let survey of surveys; index as i" rules="rows">
+            <tr>
+                <th>{{ survey.title }}</th>
+                <td>
+                    <button [routerLink]="['/surveys', survey._id]" class="btn btn-secondary">Bekijken</button>
+                    <button type="submit" (click)="deleteSurvey(survey)" class="btn btn-danger">Verwijderen</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

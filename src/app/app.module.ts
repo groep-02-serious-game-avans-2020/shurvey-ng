@@ -9,9 +9,11 @@ import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { SurveyComponent } from './components/survey/survey.component';
+import { CreateSurveyComponent } from './components/survey/create-survey/create-survey.component';
+import { DetailsSurveyComponent } from './components/survey/details-survey/details-survey.component';
 
 @NgModule({
-  declarations: [AppComponent, RegisterComponent, LoginComponent, SurveyComponent],
+  declarations: [AppComponent, RegisterComponent, LoginComponent, SurveyComponent, CreateSurveyComponent, DetailsSurveyComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

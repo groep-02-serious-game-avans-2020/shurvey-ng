@@ -14,7 +14,7 @@ export class SurveyService {
 
   create(survey: Omit<Survey, '_id'>) {
     return this.http
-      .post<Survey>(`${environment.api}/survey`, { survey })
+      .post<Survey>(`${environment.api}/survey`, survey)
       .pipe(
         map((data) => {
           return data;

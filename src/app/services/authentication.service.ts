@@ -25,7 +25,7 @@ export class AuthenticationService {
 
   register(user: Omit<User, '_id' | 'token'>) {
     return this.http
-      .post<User>(`${environment.api}/user`, { user }) // Remove { }?
+      .post<User>(`${environment.api}/user`, user)
       .pipe(
         map((data) => {
           return data;
@@ -37,12 +37,11 @@ export class AuthenticationService {
   }
 
   login(user: Pick<User, 'email' | 'password'>) {
-    console.log(user);
     return this.http
-      .post<any>(`${environment.api}/user/login`, user) // Remove { }?
+      .post<any>(`${environment.api}/user/login`, user)
       .pipe(
         map((data) => {
-          console.log(data);
+          console.log('Map: ', data);
           localStorage.setItem('currentUser', JSON.stringify(data));
           this.currentUserSubject.next(data);
           return data;

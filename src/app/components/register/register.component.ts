@@ -3,7 +3,6 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AuthenticationService } from '../../services/authentication.service';
-import { User } from '../../models/user';
 
 @Component({
   selector: 'app-register',
@@ -19,7 +18,7 @@ export class RegisterComponent implements OnInit {
     private authenticationService: AuthenticationService
   ) {
     if (this.authenticationService.currentUserValue) {
-      this.router.navigate(['/']);
+      this.router.navigate(['/surveys']);
     }
     this.createForm();
   }
@@ -50,7 +49,7 @@ export class RegisterComponent implements OnInit {
     const displayName = this.form.displayName.value;
     const password = this.form.password.value;
 
-    const user: Omit<User, '_id' | 'token'> = {
+    const user: Parameters<AuthenticationService['register']>[0] = {
       email,
       displayName,
       password,
@@ -59,9 +58,9 @@ export class RegisterComponent implements OnInit {
     this.authenticationService.register(user).subscribe((data) => {
       if (data.error) {
         // Display error
-        return console.log(data.message);
+        return console.log('Error: ', data.message);
       }
-      return this.router.navigate(['/login']);
+      this.router.navigate(['/login']);
     });
   }
 }

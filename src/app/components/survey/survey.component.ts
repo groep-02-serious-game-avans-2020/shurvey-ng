@@ -15,9 +15,12 @@ export class SurveyComponent implements OnInit {
   constructor(private router: Router, private surveyService: SurveyService) {}
 
   ngOnInit(): void {
-    this.surveyService.getAll().subscribe((surveys) => {
-      this.surveys = surveys;
-      console.log(surveys);
+    this.surveyService.getAll().subscribe((data) => {
+      if (data.error) {
+        // Display error
+        return console.log('Error: ', data.message);
+      }
+      this.surveys = data;
     });
   }
 
@@ -27,6 +30,10 @@ export class SurveyComponent implements OnInit {
 
   deleteSurvey(survey: Survey) {
     this.surveyService.delete(survey._id).subscribe((data) => {
+      if (data.error) {
+        // Display error
+        return console.log('Error: ', data.message);
+      }
       this.surveys = this.surveys.filter((s) => s !== survey);
     });
   }

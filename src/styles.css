@@ -14,3 +14,9 @@ body {
 .center {
   text-align: center;
 }
+
+.btn {
+  margin-bottom: 1%;
+  margin-right: 1%;
+  margin-top: 1%;
+}

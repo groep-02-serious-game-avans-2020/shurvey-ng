@@ -3,7 +3,6 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AuthenticationService } from '../../services/authentication.service';
-import { User } from '../../models/user';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +18,7 @@ export class LoginComponent implements OnInit {
     private authenticationService: AuthenticationService
   ) {
     if (this.authenticationService.currentUserValue) {
-      this.router.navigate(['/']);
+      this.router.navigate(['/surveys']);
     }
     this.createForm();
   }
@@ -48,7 +47,7 @@ export class LoginComponent implements OnInit {
     const email = this.form.email.value;
     const password = this.form.password.value;
 
-    const user: Pick<User, 'email' | 'password'> = {
+    const user: Parameters<AuthenticationService['login']>[0] = {
       email,
       password,
     };
@@ -56,9 +55,9 @@ export class LoginComponent implements OnInit {
     this.authenticationService.login(user).subscribe((data) => {
       if (data.error) {
         // Display error
-        return console.log(data.message);
+        return console.log('Error: ', data.message);
       }
-      return this.router.navigate(['/survey']);
+      this.router.navigate(['/surveys']);
     });
   }
 }
