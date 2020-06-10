@@ -27,6 +27,10 @@ export class CreateSurveyComponent implements OnInit {
     return this.surveyForm.controls;
   }
 
+  get questionForm() {
+    return this.surveyForm.get('questions') as FormArray;
+  }
+
   createForm() {
     this.surveyForm = this.formBuilder.group({
       title: ['', Validators.required],
@@ -46,32 +50,33 @@ export class CreateSurveyComponent implements OnInit {
   addQuestion() {
     this.questions = this.surveyForm.get('questions') as FormArray;
     this.questions.push(this.createQuestion());
+    console.log(this.form)
   }
 
-  // onSubmit() {
-  //   if (this.surveyForm.invalid) {
-  //     return;
-  //   }
-  //   this.createSurvey();
-  // }
+  onSubmit() {
+    if (this.surveyForm.invalid) {
+      return;
+    }
+    this.createSurvey();
+  }
 
-  // createSurvey() {
-  //   const title = this.form.title.value;
-  //   const questions = this.form.questions.value;
-  //   const answers = this.form.answers.value;
+  createSurvey() {
+    const title = this.form.title.value;
+    const questions = this.form.questions.value;
+    const answers = this.form.answers.value;
 
-  //   const survey: Parameters<SurveyService['create']>[0] = {
-  //     title,
-  //     questions,
-  //     answers,
-  //   };
+    const survey: Parameters<SurveyService['create']>[0] = {
+      title,
+      questions,
+      answers,
+    };
 
-  //   this.surveyService.create(survey).subscribe((data) => {
-  //     if (data.error) {
-  //       // Display error
-  //       return console.log('Error: ', data.message);
-  //     }
-  //     this.router.navigate(['surveys']);
-  //   });
-  // }
+    this.surveyService.create(survey).subscribe((data) => {
+      if (data.error) {
+        // Display error
+        return console.log('Error: ', data.message);
+      }
+      this.router.navigate(['surveys']);
+    });
+  }
 }

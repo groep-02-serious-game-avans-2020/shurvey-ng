@@ -1,28 +1,32 @@
-<div class="center">
-    <h1>
-        Vragenlijst aanmaken
-    </h1>
-    <form [formGroup]="surveyForm" novalidate>
-        <div class="form-group">
-            <label class="center-block">Titel:
-                <input class="form-control" formControlName="title" type="text">
-                <div
-                    *ngIf="surveyForm.controls['title'].invalid && (surveyForm.controls['title'].dirty || surveyForm.controls['title'].touched)">
-                    <div *ngIf="surveyForm.controls['title'].errors.required">
-                        Titel is vereist.
-                    </div>
-                </div>
-            </label>
-        </div>
-        <div formArrayName="questions" *ngFor="let question of form['questions'].controls; let i = index">
-            <div [formGroupName]="i">
-                <input formControlName='questionNumber'>
-                <input formControlName='question'>
-                <input formControlName='textAnswer'>
+<h1>
+    Vragenlijst aanmaken
+</h1>
+<form [formGroup]="surveyForm" novalidate>
+    <div class="form-group">
+        <label for="inputTitle">Titel</label>
+        <input type="text" class="form-control" id="inputTitle" aria-describedby="titleHelp"
+            placeholder="De perfecte vragenlijst" formControlName="title">
+        <small class="form-text text-muted">Voer hier de titel van jouw vragenlijst in.</small>
+        <div *ngIf="form['title'].invalid && (form['title'].dirty || form['title'].touched)">
+            <div *ngIf="form['title'].errors.required">
+                <small class="form-text text-danger">De titel is vereist.</small>
             </div>
         </div>
-        <button type="button" (click)="addQuestion()" class="btn">+</button>
-        <!-- <div class="form-group">
+    </div>
+    <div class="form-group">
+        <label for="inputQuestions">Vragen</label>
+        <small id="questionsHelp" class="form-text text-muted">Druk op het plus-teken om een nieuwe vraag toe te
+            voegen.</small>
+    </div>
+    <div formArrayName="questions" *ngFor="let question of questionForm.controls; let i = index">
+        <div [formGroupName]="i">
+            <input formControlName='questionNumber'>
+            <input formControlName='question'>
+            <input formControlName='textAnswer'>
+        </div>
+    </div>
+    <button type="button" (click)="addQuestion()" class="btn">+</button>
+    <!-- <div class="form-group">
             <label class="center-block">Vragen:
                 <input class="form-control" formControlName="questions" type="text">
                 <div
@@ -33,9 +37,8 @@
                 </div>
             </label>
         </div> -->
-        <button type="submit" (click)="onSubmit()" [disabled]="surveyForm.pristine || surveyForm.invalid"
-            class="btn btn-success">
-            Aanmaken
-        </button>
-    </form>
-</div>
+    <button type="submit" (click)="onSubmit()" [disabled]="surveyForm.pristine || surveyForm.invalid"
+        class="btn btn-success">
+        Aanmaken
+    </button>
+</form>
