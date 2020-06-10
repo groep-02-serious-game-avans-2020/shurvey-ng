@@ -23,17 +23,9 @@ export class AuthenticationService {
     return this.currentUserSubject.value;
   }
 
-  register(
-    email: User['email'],
-    displayName: User['displayName'],
-    password: User['password']
-  ) {
+  register(user: Omit<User, '_id' | 'token'>) {
     return this.http
-      .post<User>(`${environment.api}/user`, {
-        email,
-        displayName,
-        password,
-      })
+      .post<User>(`${environment.api}/user`, { user }) // Remove { }?
       .pipe(
         map((data) => {
           return data;
@@ -44,13 +36,14 @@ export class AuthenticationService {
       );
   }
 
-  login(email: User['email'], password: User['password']) {
+  login(user: Pick<User, 'email' | 'password'>) {
+    console.log(user);
     return this.http
-      .post<any>(`${environment.api}/user/login`, { email, password })
+      .post<any>(`${environment.api}/user/login`, user) // Remove { }?
       .pipe(
         map((data) => {
           console.log(data);
-          localStorage.setItem('currentUser', JSON.stringify(data.token));
+          localStorage.setItem('currentUser', JSON.stringify(data));
           this.currentUserSubject.next(data);
           return data;
         }),

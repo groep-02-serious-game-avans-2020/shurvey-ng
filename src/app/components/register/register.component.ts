@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { AuthenticationService } from '../services/authentication.service';
+import { AuthenticationService } from '../../services/authentication.service';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-register',
@@ -17,6 +18,9 @@ export class RegisterComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService
   ) {
+    if (this.authenticationService.currentUserValue) {
+      this.router.navigate(['/']);
+    }
     this.createForm();
   }
 
@@ -46,14 +50,18 @@ export class RegisterComponent implements OnInit {
     const displayName = this.form.displayName.value;
     const password = this.form.password.value;
 
-    this.authenticationService
-      .register(email, displayName, password)
-      .subscribe((data) => {
-        if (data.error) {
-          // Display error
-          return console.log(data.message);
-        }
-        return this.router.navigate(['/login']);
-      });
+    const user: Omit<User, '_id' | 'token'> = {
+      email,
+      displayName,
+      password,
+    };
+
+    this.authenticationService.register(user).subscribe((data) => {
+      if (data.error) {
+        // Display error
+        return console.log(data.message);
+      }
+      return this.router.navigate(['/login']);
+    });
   }
 }

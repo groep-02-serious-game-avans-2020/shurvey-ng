@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { AuthenticationService } from '../services/authentication.service';
+import { AuthenticationService } from '../../services/authentication.service';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
@@ -17,6 +18,9 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService
   ) {
+    if (this.authenticationService.currentUserValue) {
+      this.router.navigate(['/']);
+    }
     this.createForm();
   }
 
@@ -44,14 +48,17 @@ export class LoginComponent implements OnInit {
     const email = this.form.email.value;
     const password = this.form.password.value;
 
-    this.authenticationService
-      .login(email, password)
-      .subscribe((data) => {
-        if (data.error) {
-          // Display error
-          return console.log(data.message);
-        }
-        return this.router.navigate(['/survey']);
-      });
+    const user: Pick<User, 'email' | 'password'> = {
+      email,
+      password,
+    };
+
+    this.authenticationService.login(user).subscribe((data) => {
+      if (data.error) {
+        // Display error
+        return console.log(data.message);
+      }
+      return this.router.navigate(['/survey']);
+    });
   }
 }
