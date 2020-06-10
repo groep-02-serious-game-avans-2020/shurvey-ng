@@ -3,13 +3,25 @@ import { HttpClient } from '@angular/common/http';
 import { User } from '../models/user';
 import { environment } from '../../environments/environment';
 import { map, catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { of, BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthenticationService {
-  constructor(private http: HttpClient) {}
+  private currentUserSubject: BehaviorSubject<User>;
+  public currentUser: Observable<User>;
+
+  constructor(private http: HttpClient) {
+    this.currentUserSubject = new BehaviorSubject<User>(
+      JSON.parse(localStorage.getItem('currentUser'))
+    );
+    this.currentUser = this.currentUserSubject.asObservable();
+  }
+
+  get currentUserValue() {
+    return this.currentUserSubject.value;
+  }
 
   register(
     email: User['email'],
@@ -24,6 +36,22 @@ export class AuthenticationService {
       })
       .pipe(
         map((data) => {
+          return data;
+        }),
+        catchError((error) => {
+          return of(error);
+        })
+      );
+  }
+
+  login(email: User['email'], password: User['password']) {
+    return this.http
+      .post<any>(`${environment.api}/user/login`, { email, password })
+      .pipe(
+        map((data) => {
+          console.log(data);
+          localStorage.setItem('currentUser', JSON.stringify(data.token));
+          this.currentUserSubject.next(data);
           return data;
         }),
         catchError((error) => {

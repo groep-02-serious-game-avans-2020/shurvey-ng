@@ -5,12 +5,12 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css'],
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
-export class RegisterComponent implements OnInit {
-  registerForm: FormGroup;
+export class LoginComponent implements OnInit {
+  loginForm: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -23,37 +23,35 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {}
 
   get form() {
-    return this.registerForm.controls;
+    return this.loginForm.controls;
   }
 
   createForm() {
-    this.registerForm = this.formBuilder.group({
+    this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      displayName: ['', Validators.required],
       password: ['', Validators.required],
     });
   }
 
   onSubmit() {
-    if (this.registerForm.invalid) {
+    if (this.loginForm.invalid) {
       return;
     }
-    this.register();
+    this.login();
   }
 
-  register() {
+  login() {
     const email = this.form.email.value;
-    const displayName = this.form.displayName.value;
     const password = this.form.password.value;
 
     this.authenticationService
-      .register(email, displayName, password)
+      .login(email, password)
       .subscribe((data) => {
         if (data.error) {
           // Display error
           return console.log(data.message);
         }
-        return this.router.navigate(['/login']);
+        return this.router.navigate(['/survey']);
       });
   }
 }
