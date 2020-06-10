@@ -41,7 +41,6 @@ export class AuthenticationService {
       .post<any>(`${environment.api}/user/login`, user)
       .pipe(
         map((data) => {
-          console.log('Map: ', data);
           localStorage.setItem('currentUser', JSON.stringify(data));
           this.currentUserSubject.next(data);
           return data;
