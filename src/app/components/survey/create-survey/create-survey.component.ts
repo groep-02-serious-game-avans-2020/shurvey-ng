@@ -12,6 +12,7 @@ import { SurveyService } from '../../../services/survey.service';
 export class CreateSurveyComponent implements OnInit {
   surveyForm: FormGroup;
   questions: FormArray;
+  error: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -74,7 +75,7 @@ export class CreateSurveyComponent implements OnInit {
     this.surveyService.create(survey).subscribe((data) => {
       if (data.error) {
         // Display error
-        return console.log('Error: ', data.message);
+        return this.error = data.error;
       }
       this.router.navigate(['surveys']);
     });

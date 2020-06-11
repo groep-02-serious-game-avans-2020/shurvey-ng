@@ -1,6 +1,7 @@
 <h1>
     Vragenlijst aanmaken
 </h1>
+<p *ngIf="error">{{ error.Error }}</p>
 <form [formGroup]="surveyForm" novalidate>
     <div class="form-group">
         <label for="inputTitle">Titel</label>

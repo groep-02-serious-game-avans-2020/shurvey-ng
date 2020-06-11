@@ -11,6 +11,7 @@ import { SurveyService } from '../../services/survey.service';
 })
 export class SurveyComponent implements OnInit {
   surveys: Survey[];
+  error: any;
 
   constructor(private router: Router, private surveyService: SurveyService) {}
 
@@ -18,7 +19,7 @@ export class SurveyComponent implements OnInit {
     this.surveyService.getAll().subscribe((data) => {
       if (data.error) {
         // Display error
-        return console.log('Error: ', data.message);
+        return this.error = data.error;
       }
       this.surveys = data;
     });
@@ -32,7 +33,7 @@ export class SurveyComponent implements OnInit {
     this.surveyService.delete(survey._id).subscribe((data) => {
       if (data.error) {
         // Display error
-        return console.log('Error: ', data.message);
+        return this.error = data.error;
       }
       this.surveys = this.surveys.filter((s) => s !== survey);
     });

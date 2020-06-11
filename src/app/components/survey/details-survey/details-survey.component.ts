@@ -12,6 +12,7 @@ import { SurveyService } from '../../../services/survey.service';
 export class DetailsSurveyComponent implements OnInit {
   private id: string;
   survey: Survey;
+  error: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -27,7 +28,7 @@ export class DetailsSurveyComponent implements OnInit {
     this.surveyService.get(this.id).subscribe((data) => {
       if (data.error) {
         // Display error
-        return console.log('Error: ', data.message);
+        return this.error = data.error;
       }
       this.survey = data;
     });

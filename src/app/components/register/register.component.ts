@@ -11,6 +11,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
+  error: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -58,7 +59,7 @@ export class RegisterComponent implements OnInit {
     this.authenticationService.register(user).subscribe((data) => {
       if (data.error) {
         // Display error
-        return console.log('Error: ', data.message);
+        return this.error = data.error;
       }
       this.router.navigate(['/login']);
     });

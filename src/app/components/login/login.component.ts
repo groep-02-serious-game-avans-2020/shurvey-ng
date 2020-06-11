@@ -11,6 +11,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  error: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -55,7 +56,7 @@ export class LoginComponent implements OnInit {
     this.authenticationService.login(user).subscribe((data) => {
       if (data.error) {
         // Display error
-        return console.log('Error: ', data.message);
+        return this.error = data.error;
       }
       this.router.navigate(['/surveys']);
     });

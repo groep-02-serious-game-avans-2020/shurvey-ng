@@ -2,6 +2,7 @@
     <h1>
         Inloggen
     </h1>
+    <p *ngIf="error">{{ error.Error }}</p>
     <form [formGroup]="loginForm" novalidate>
         <div class="form-group">
             <label class="center-block">Email:
