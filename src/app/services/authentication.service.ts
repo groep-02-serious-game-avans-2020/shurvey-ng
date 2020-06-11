@@ -53,7 +53,6 @@ export class AuthenticationService {
 
   logout() {
     localStorage.removeItem('currentUser');
-    console.log('removed');
     this.currentUserSubject.next(null);
   }
 }
