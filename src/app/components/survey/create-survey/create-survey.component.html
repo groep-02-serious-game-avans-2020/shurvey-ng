@@ -4,8 +4,8 @@
 <form [formGroup]="surveyForm" novalidate>
     <div class="form-group">
         <label for="inputTitle">Titel</label>
-        <input type="text" class="form-control" id="inputTitle" aria-describedby="titleHelp"
-            placeholder="De perfecte vragenlijst" formControlName="title">
+        <input type="text" class="form-control" id="inputTitle" placeholder="De perfecte vragenlijst"
+            formControlName="title">
         <small class="form-text text-muted">Voer hier de titel van jouw vragenlijst in.</small>
         <div *ngIf="form['title'].invalid && (form['title'].dirty || form['title'].touched)">
             <div *ngIf="form['title'].errors.required">
@@ -20,25 +20,28 @@
     </div>
     <div formArrayName="questions" *ngFor="let question of questionForm.controls; let i = index">
         <div [formGroupName]="i">
-            <input formControlName='questionNumber'>
-            <input formControlName='question'>
-            <input formControlName='textAnswer'>
-        </div>
-    </div>
-    <button type="button" (click)="addQuestion()" class="btn">+</button>
-    <!-- <div class="form-group">
-            <label class="center-block">Vragen:
-                <input class="form-control" formControlName="questions" type="text">
-                <div
-                    *ngIf="surveyForm.controls['questions'].invalid && (surveyForm.controls['questions'].dirty || surveyForm.controls['questions'].touched)">
-                    <div *ngIf="surveyForm.controls['questions'].errors.required">
-                        Vragen zijn vereist.
-                    </div>
+            <input type="hidden" class="form-control form-control-sm" formControlName='questionNumber'>
+            <div class="form-check" style="margin-top: 1%;">
+                <input type="checkbox" class="form-check-input" id="textAnswerCheck" formControlName='textAnswer'>
+                <label class="form-check-label" for="textAnswerCheck">Open vraag</label>
+            </div>
+            <div class="input-group">
+                <input type="text" class="form-control" formControlName='question'>
+                <div class="input-group-append">
+                    <button *ngIf="i > 0" type="button" (click)="removeQuestion(i)" class="btn btn-danger">-</button>
                 </div>
-            </label>
-        </div> -->
+            </div>
+            <!-- <div
+                *ngIf="questionForm.controls[i].controls['question'].invalid && (questionForm.controls[i].controls['question'].dirty || questionForm.controls[i].controls['question'].touched)">
+                <div *ngIf="questionForm.controls[i].controls['question'].errors.required">
+                    <small class="form-text text-danger">De vraag is vereist.</small>
+                </div>
+            </div> -->
+        </div>
+        <button type="button" (click)="addQuestion(i)" class="btn btn-success">+</button>
+    </div>
     <button type="submit" (click)="onSubmit()" [disabled]="surveyForm.pristine || surveyForm.invalid"
-        class="btn btn-success">
+        class="btn btn-info">
         Aanmaken
     </button>
 </form>

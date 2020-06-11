@@ -12,7 +12,7 @@ import { of } from 'rxjs';
 export class SurveyService {
   constructor(private http: HttpClient) {}
 
-  create(survey: Omit<Survey, '_id'>) {
+  create(survey: Omit<Survey, '_id' | 'answers'>) {
     return this.http
       .post<Survey>(`${environment.api}/survey`, survey)
       .pipe(
