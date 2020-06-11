@@ -38,11 +38,13 @@
                 </div>
             </div> -->
         </div>
-        <button type="button" (click)="addQuestion(i)" class="btn btn-success">+</button>
+        <button type="button" (click)="addQuestion(i)" class="btn btn-success" style="margin-top: 1%;">+</button>
     </div>
-    <button type="submit" (click)="onSubmit()" [disabled]="surveyForm.pristine || surveyForm.invalid"
+    <div class="btn-group" role="group" style="margin-top: 1%;">
+        <button type="submit" (click)="onSubmit()" [disabled]="surveyForm.pristine || surveyForm.invalid"
         class="btn btn-info">
         Aanmaken
     </button>
     <button [routerLink]="['/surveys']" class="btn btn-warning">Terug naar lijst</button>
+    </div>
 </form>

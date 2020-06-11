@@ -11,9 +11,18 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { SurveyComponent } from './components/survey/survey.component';
 import { CreateSurveyComponent } from './components/survey/create-survey/create-survey.component';
 import { DetailsSurveyComponent } from './components/survey/details-survey/details-survey.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
-  declarations: [AppComponent, RegisterComponent, LoginComponent, SurveyComponent, CreateSurveyComponent, DetailsSurveyComponent],
+  declarations: [
+    AppComponent,
+    RegisterComponent,
+    LoginComponent,
+    SurveyComponent,
+    CreateSurveyComponent,
+    DetailsSurveyComponent,
+    NavbarComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
