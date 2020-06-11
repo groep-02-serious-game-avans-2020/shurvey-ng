@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
-import { Survey } from '../models/survey';
-import { environment } from 'src/environments/environment';
 import { map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
+
+import { Survey } from '../models/survey';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',

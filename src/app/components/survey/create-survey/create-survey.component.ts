@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { SurveyService } from 'src/app/services/survey.service';
+import { SurveyService } from '../../../services/survey.service';
 
 @Component({
   selector: 'app-create-survey',

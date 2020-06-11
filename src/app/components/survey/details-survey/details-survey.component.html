@@ -1,1 +1,19 @@
-<p>details-survey works!</p>
+<h1>Titel: {{ survey?.title }}</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Vraag</th>
+            <th scope="col">Open vraag</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let question of survey?.questions; index as i">
+            <th scope="row">{{ question.questionNumber }}</th>
+            <td>{{ question.question }}</td>
+            <td *ngIf="question.textAnswer">✔</td>
+            <td *ngIf="!question.textAnswer">✘</td>
+        </tr>
+    </tbody>
+</table>
+<button [routerLink]="['/surveys']" class="btn btn-warning">Terug naar lijst</button>

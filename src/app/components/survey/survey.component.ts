@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Survey } from 'src/app/models/survey';
-import { SurveyService } from 'src/app/services/survey.service';
+import { Survey } from '../../models/survey';
+import { SurveyService } from '../../services/survey.service';
 
 @Component({
   selector: 'app-survey',
