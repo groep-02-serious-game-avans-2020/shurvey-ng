@@ -3,6 +3,10 @@
 
 <qrcode [qrdata]="this.surveyQrText" [scale]="6" [margin]="0"></qrcode>
 
+<button [routerLink]="['/surveys']" class="btn btn-warning">
+  Back to list
+</button>
+
 <table class="table">
   <thead>
     <tr>
@@ -20,6 +24,3 @@
     </tr>
   </tbody>
 </table>
-<button [routerLink]="['/surveys']" class="btn btn-warning">
-  Back to list
-</button>

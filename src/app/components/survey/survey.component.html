@@ -1,20 +1,20 @@
-<h1>Vragenlijsten</h1>
+<h1>Surveys</h1>
 <p *ngIf="error">{{ error.Error }}</p>
 <button
   (click)="createSurvey()"
   class="btn btn-info"
   style="margin-bottom: 1%;"
 >
-  Nieuwe vragenlijst aanmaken
+  Create new survey
 </button>
 <p *ngIf="!surveys || (surveys && !(surveys.length > 0))">
-  Geen vragenlijsten beschikbaar.
+  No surveys found.
 </p>
 <table class="table">
   <thead>
     <tr>
-      <th scope="col">Titel</th>
-      <th scope="col">Opties</th>
+      <th scope="col">Title</th>
+      <th scope="col">Options</th>
     </tr>
   </thead>
   <tbody>
@@ -24,23 +24,16 @@
         <div class="btn-group" role="group">
           <button
             [routerLink]="['/surveys', survey._id]"
-            class="btn btn-secondary"
+            class="btn btn-primary"
           >
-            Bekijken
-          </button>
-          <button
-            type="submit"
-            (click)="getQrCode(survey)"
-            class="btn btn-info"
-          >
-            QR-Code ophalen
+            Open
           </button>
           <button
             type="submit"
             (click)="deleteSurvey(survey)"
             class="btn btn-danger"
           >
-            Verwijderen
+            Delete
           </button>
         </div>
       </td>

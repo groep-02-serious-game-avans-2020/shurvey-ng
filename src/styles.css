@@ -6,9 +6,13 @@ body {
   height: 100%;
 }
 body {
-  margin-left: 10%;
-  margin-right: 10%;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.content {
+  max-width: 900px;
+  margin: 0 auto;
+  /* padding: 1rem; */
 }
 
 .center {
@@ -21,4 +25,15 @@ h1 {
 }
 
 .qrcode {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+#navbar img {
+  height: 1.9rem;
+  margin: 0.2rem;
+}
+
+.table {
+  margin-top: 1rem;
 }
