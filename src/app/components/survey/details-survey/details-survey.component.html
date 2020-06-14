@@ -1,0 +1,26 @@
+<h1>{{ survey?.title }}</h1>
+<p *ngIf="error">{{ error.Error }}</p>
+
+<qrcode [qrdata]="this.surveyQrText" [scale]="6" [margin]="0"></qrcode>
+
+<button [routerLink]="['/surveys']" class="btn btn-warning">
+  Back to list
+</button>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Question</th>
+      <th scope="col">Open question</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let question of survey?.questions; index as i">
+      <th scope="row">{{ question.questionNumber }}</th>
+      <td>{{ question.question }}</td>
+      <td *ngIf="question.textAnswer">✔</td>
+      <td *ngIf="!question.textAnswer">✘</td>
+    </tr>
+  </tbody>
+</table>
