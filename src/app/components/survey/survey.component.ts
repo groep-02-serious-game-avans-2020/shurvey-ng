@@ -13,7 +13,7 @@ export class SurveyComponent implements OnInit {
   surveys: Survey[];
   error: any;
 
-  constructor(private router: Router, private surveyService: SurveyService) {}
+  constructor(private router: Router, private surveyService: SurveyService) { }
 
   ngOnInit(): void {
     this.surveyService.getAll().subscribe((data) => {
@@ -37,5 +37,9 @@ export class SurveyComponent implements OnInit {
       }
       this.surveys = this.surveys.filter((s) => s !== survey);
     });
+  }
+
+  getQrCode(survey: Survey) {
+
   }
 }

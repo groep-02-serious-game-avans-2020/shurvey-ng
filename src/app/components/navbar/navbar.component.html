@@ -1,12 +1,36 @@
 <div id="navbar">
-    <div class="badge text-wrap" style="width: 6rem; margin-top: 0.5%;" *ngIf="currentUser">
-        Welkom terug, {{ currentUser.displayName }}
-    </div>
+  <div class="content">
     <div id="right">
-        <div class="btn-group" role="group">
-            <button class="btn btn-info" routerLink="/register" *ngIf="!currentUser">Registreren</button>
-            <button class="btn btn-dark" routerLink="/login" *ngIf="!currentUser">Inloggen</button>
-        </div>
-        <button class="btn btn-danger" (click)="logout()" *ngIf="currentUser">Uitloggen</button>
+      <div
+        class="badge text-wrap"
+        style="width: 6rem; margin-top: 0.5%;"
+        *ngIf="currentUser"
+      >
+        {{ currentUser.displayName }}
+      </div>
+      <div class="btn-group" role="group">
+        <button
+          class="btn btn-info"
+          routerLink="/register"
+          *ngIf="!currentUser"
+        >
+          Register
+        </button>
+        <img
+          src="../../../assets/icons/login.svg"
+          alt="login icon"
+          title="Login"
+          routerLink="/login"
+          *ngIf="!currentUser"
+        />
+      </div>
+      <img
+        src="../../../assets/icons/logout.svg"
+        alt="logout icon"
+        title="Logout"
+        (click)="logout()"
+        *ngIf="currentUser"
+      />
     </div>
+  </div>
 </div>

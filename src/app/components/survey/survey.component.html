@@ -1,27 +1,42 @@
-<h1>Vragenlijsten</h1>
+<h1>Surveys</h1>
 <p *ngIf="error">{{ error.Error }}</p>
-<button (click)="createSurvey()" class="btn btn-info" style="margin-bottom: 1%;">
-    Nieuwe vragenlijst aanmaken
+<button
+  (click)="createSurvey()"
+  class="btn btn-info"
+  style="margin-bottom: 1%;"
+>
+  Create new survey
 </button>
-<p *ngIf="!surveys || surveys && !(surveys.length > 0)">
-    Geen vragenlijsten beschikbaar.
+<p *ngIf="!surveys || (surveys && !(surveys.length > 0))">
+  No surveys found.
 </p>
 <table class="table">
-    <thead>
-        <tr>
-            <th scope="col">Titel</th>
-            <th scope="col">Opties</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let survey of surveys; index as i">
-            <th scope="row">{{ survey.title }}</th>
-            <td>
-                <div class="btn-group" role="group">
-                    <button [routerLink]="['/surveys', survey._id]" class="btn btn-secondary">Bekijken</button>
-                    <button type="submit" (click)="deleteSurvey(survey)" class="btn btn-danger">Verwijderen</button>
-                </div>
-            </td>
-        </tr>
-    </tbody>
+  <thead>
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Options</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let survey of surveys; index as i">
+      <th scope="row">{{ survey.title }}</th>
+      <td>
+        <div class="btn-group" role="group">
+          <button
+            [routerLink]="['/surveys', survey._id]"
+            class="btn btn-primary"
+          >
+            Open
+          </button>
+          <button
+            type="submit"
+            (click)="deleteSurvey(survey)"
+            class="btn btn-danger"
+          >
+            Delete
+          </button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
 </table>

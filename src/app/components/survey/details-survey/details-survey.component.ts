@@ -13,12 +13,13 @@ export class DetailsSurveyComponent implements OnInit {
   private id: string;
   survey: Survey;
   error: any;
+  surveyQrText: string;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private surveyService: SurveyService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
@@ -31,6 +32,10 @@ export class DetailsSurveyComponent implements OnInit {
         return this.error = data.error;
       }
       this.survey = data;
+      this.surveyQrText = `{
+        "type":"survey",
+        "_id":"${this.id}"
+      }`
     });
   }
 }
